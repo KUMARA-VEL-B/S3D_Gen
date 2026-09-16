@@ -1,0 +1,38 @@
+// =========================================================================
+// Houdini VEX SOP: disaster_deform.vfl
+// =========================================================================
+// Geometry-level VEX code for controlled disaster deformation & debris:
+// - Identifies points within the affected region bounding box
+// - Applies controlled vector displacement along normal @N
+// - Moves selected geometry subtly (settlement/tilt)
+// - Emits affected point tags i@affected
+// - Avoids extreme destruction to keep original reconstruction recognizable
+// =========================================================================
+
+vector bbox_min = chv("affected_bbox_min");
+vector bbox_max = chv("affected_bbox_max");
+float disp_scale = chf("disp_scale");
+float freq = chf("freq");
+
+// Store original position for recovery stage
+v@orig_P = @P;
+i@affected = 0;
+
+// Bounding box inclusion test
+if (@P.x >= bbox_min.x && @P.x <= bbox_max.x &&
+    @P.y >= bbox_min.y && @P.y <= bbox_max.y &&
+    @P.z >= bbox_min.z && @P.z <= bbox_max.z)
+{
+    i@affected = 1;
+
+    // Controlled 3D noise displacement (VEX anoise)
+    vector n_coord = @P * freq;
+    vector disp_vec = anoise(n_coord);
+
+    // Apply displacement along surface normal with subtle gravity tilt
+    @P += normalize(@N) * (disp_vec.x * disp_scale);
+    @P.y -= abs(disp_vec.y) * (disp_scale * 0.35);
+
+    // Controlled horizontal shear
+    @P.x += disp_vec.z * (disp_scale * 0.25);
+}

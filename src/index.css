@@ -1,0 +1,259 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-brand: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    /* S3DGen Central Design Tokens */
+    --s3-bg: #F5F9FD;
+    --s3-bg-secondary: #EEF5FB;
+    --s3-surface: #FFFFFF;
+    --s3-surface-soft: #F0F8FF;
+    --s3-surface-cyan: #ECFAFF;
+    --s3-surface-violet: #F4F1FF;
+    --s3-glass: rgba(255, 255, 255, 0.82);
+    --s3-primary: #28BFEF;
+    --s3-primary-blue: #3287E8;
+    --s3-violet: #7567E8;
+    --s3-text: #243447;
+    --s3-text-strong: #17324D;
+    --s3-text-secondary: #60758A;
+    --s3-text-muted: #8798A8;
+    --s3-border: #D8E4EF;
+    --s3-border-soft: rgba(84, 126, 165, 0.16);
+    --s3-success: #22B573;
+    --s3-warning: #D99A19;
+    --s3-danger: #E25555;
+    --s3-shadow: 0 8px 28px rgba(50, 90, 125, 0.08);
+
+    /* Legacy CSS Variable Compatibility Mappings */
+    --bg-primary: #F5F9FD;
+    --bg-deep-blue: #EEF5FB;
+    --bg-blue: #F0F8FF;
+    --surface-primary: #FFFFFF;
+    --surface-elevated: #F8FAFC;
+    --border-primary: #D8E4EF;
+    --border-subtle: rgba(84, 126, 165, 0.16);
+    --accent-cyan: #28BFEF;
+    --accent-cyan-hover: #1FA6D4;
+    --accent-violet: #7567E8;
+    --accent-soft-violet: #897CEF;
+    --accent-amber: #D99A19;
+    --status-success: #22B573;
+    --status-warning: #D99A19;
+    --status-danger: #E25555;
+    --text-primary: #243447;
+    --text-secondary: #60758A;
+    --text-muted: #8798A8;
+    --font-brand: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    background-color: #F5F9FD;
+    color: #243447;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    letter-spacing: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: #17324D;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+}
+
+/* S3DGen Brand Identity Display Font */
+.font-brand {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.font-sans {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* S3DGen Distinctive Light Spatial Background Pattern (Static, Layered, Translucent, Engineering) */
+.spatial-atmosphere-bg {
+  background-color: #F5F9FD;
+  background-image:
+    /* Technical geospatial coordinate grid (48px spacing, 1px at 0.045 opacity) */
+    linear-gradient(to right, rgba(50, 135, 232, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(50, 135, 232, 0.045) 1px, transparent 1px),
+    /* Diagonal translucent spatial depth bands */
+    linear-gradient(135deg, rgba(40, 191, 239, 0.025) 0%, transparent 40%, rgba(117, 103, 232, 0.020) 70%, transparent 100%),
+    /* Atmospheric gradient: top-left soft cyan/blue, center cool white, bottom-right soft violet */
+    radial-gradient(ellipse 90% 60% at 10% 5%, rgba(40, 191, 239, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 90% 95%, rgba(117, 103, 232, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 50% 40%, #FFFFFF 0%, #F5F9FD 100%);
+  background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+}
+
+/* Level 2 & 3 Light Glass Panels */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #D8E4EF;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(50, 90, 125, 0.08);
+}
+
+.glass-panel-elevated {
+  background-color: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid #D8E4EF;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(50, 90, 125, 0.10);
+}
+
+.glass-control {
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #D8E4EF;
+  color: #36526A;
+  box-shadow: 0 4px 12px rgba(50, 90, 125, 0.06);
+  transition: all 180ms ease;
+}
+
+.glass-control:hover {
+  background-color: #F0F8FF;
+  border-color: rgba(40, 191, 239, 0.35);
+  color: #17324D;
+}
+
+/* Primary Button System: Cyan -> Blue Gradient */
+.btn-primary-cyan {
+  background: linear-gradient(135deg, #28BFEF, #3287E8);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  box-shadow: 0 6px 18px rgba(40, 191, 239, 0.20);
+  font-weight: 600;
+  transition: all 180ms ease;
+}
+
+.btn-primary-cyan:hover {
+  background: linear-gradient(135deg, #37c7f5, #3c91f0);
+  box-shadow: 0 8px 22px rgba(40, 191, 239, 0.30);
+  transform: translateY(-1px);
+}
+
+.btn-primary-cyan:active {
+  transform: translateY(0px);
+}
+
+/* Secondary Button System: Translucent Light Glass */
+.btn-secondary-glass {
+  background-color: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #D8E4EF;
+  color: #36526A;
+  border-radius: 9px;
+  box-shadow: 0 3px 10px rgba(50, 90, 125, 0.05);
+  font-weight: 500;
+  transition: all 180ms ease;
+}
+
+.btn-secondary-glass:hover {
+  background-color: #F2F8FC;
+  border-color: #BFD6E7;
+  color: #17324D;
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #60758A;
+  transition: all 180ms ease;
+}
+
+.btn-ghost:hover {
+  background: rgba(40, 191, 239, 0.07);
+  color: #17324D;
+}
+
+/* Restrained Reset Button */
+.btn-reset {
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(226, 85, 85, 0.30);
+  color: #C94343;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(226, 85, 85, 0.08);
+  font-weight: 600;
+  transition: all 180ms ease;
+}
+
+.btn-reset:hover {
+  background-color: #FFF3F3;
+  border-color: rgba(226, 85, 85, 0.50);
+  color: #B63D3D;
+}
+
+/* Icon Button */
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.82);
+  border: 1px solid #D8E4EF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(50, 90, 125, 0.07);
+  color: #36526A;
+  transition: all 180ms ease;
+}
+
+.btn-icon:hover {
+  background-color: #ECFAFF;
+  border-color: rgba(40, 191, 239, 0.35);
+  color: #28BFEF;
+}
+
+/* Custom Light Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EEF3F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C6D6E2;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AFC5D5;
+}
+
+/* Technical Light Grid utility */
+.tech-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(50, 135, 232, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(50, 135, 232, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+

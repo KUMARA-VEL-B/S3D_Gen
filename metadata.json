@@ -1,0 +1,8 @@
+{
+  "name": "S3DGen",
+  "description": "Industrial photogrammetry and autonomous 3D spatial reconstruction dashboard for drone video inspection and structural damage analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

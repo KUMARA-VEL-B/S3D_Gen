@@ -1,0 +1,38 @@
+// =========================================================================
+// Houdini VEX SOP: recovery_highlight.vfl
+// =========================================================================
+// Geometry-level VEX code for recovery interpolation & highlight assignment:
+// - Linearly blends points back from deformed state to v@orig_P using @u_recovery
+// - Marks points as i@recovered
+// - Generates visual highlight attribute v@Cd for recovered geometry only
+// =========================================================================
+
+float u_recovery = chf("u_recovery"); // 0.0 = disaster state, 1.0 = fully recovered
+int highlight_active = chi("highlight_active");
+vector highlight_color = chv("highlight_color"); // Subtle highlight color
+
+if (i@affected == 1)
+{
+    // Smoothly restore geometry to original reconstructed position
+    @P = lerp(@P, v@orig_P, clamp(u_recovery, 0.0, 1.0));
+
+    // Recovery flag
+    i@recovered = (u_recovery >= 0.99) ? 1 : 0;
+
+    // Apply clean, subtle highlight on recovered geometry
+    if (highlight_active == 1 && i@recovered == 1)
+    {
+        // Tint recovered geometry with subtle architectural highlight
+        v@Cd = lerp(v@Cd, highlight_color, 0.65);
+        f@highlight_alpha = 1.0;
+    }
+    else
+    {
+        f@highlight_alpha = 0.0;
+    }
+}
+else
+{
+    i@recovered = 0;
+    f@highlight_alpha = 0.0;
+}
