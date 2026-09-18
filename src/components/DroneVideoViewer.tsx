@@ -297,18 +297,6 @@ export const DroneVideoViewer: React.FC<DroneVideoViewerProps> = ({
             </div>
           </div>
 
-          {/* Development / Testing Fixture Link (Clearly separated at bottom) */}
-          <div className="mt-6 pt-6 border-t border-[#E2ECF4] w-full flex flex-col items-center">
-            <button
-              onClick={handleLoadTestFixture}
-              disabled={isCreatingTestFixture}
-              id="stage01-load-fixture-btn"
-              className="px-4 py-2 rounded-xl bg-[#ECFAFF] border border-[rgba(40,191,239,0.35)] text-[#17324D] hover:bg-[#DCF4FD] transition-all text-xs font-mono font-medium flex items-center gap-2 shadow-sm disabled:opacity-50"
-            >
-              <FlaskConical className="w-3.5 h-3.5 text-[#28BFEF]" />
-              <span>{isCreatingTestFixture ? 'Generating Test Video...' : 'Load Sample Flight Video'}</span>
-            </button>
-          </div>
         </div>
       </div>
     );
