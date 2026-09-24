@@ -9,6 +9,7 @@ import {
   DisasterScenarioState
 } from '../types';
 import { GROUND_TRUTH_BUILDING, HAZARD_MARKERS } from '../data/groundTruth';
+import { ProvenanceBadge } from './ProvenanceBadge';
 
 export interface Viewport3DHandle {
   setCameraPreset: (preset: 'iso' | 'front' | 'rear' | 'left' | 'right' | 'top' | 'drone') => void;
@@ -2321,6 +2322,35 @@ export const Viewport3D = forwardRef<Viewport3DHandle, Viewport3DProps>(({
           ZOOM: <span className="text-[#17324D] font-bold">{cameraCoords.zoom}x</span> • ELEVATION: <span className="text-[#22B573] font-bold">{(cameraCoords.y + GROUND_TRUTH_BUILDING.baseAlt).toFixed(1)}m MSL</span>
         </div>
       </div>
+
+      {/* Physical & Geometric Dimensions (Top Right — only when no other right-side HUD badge is active) */}
+      {!isDamageAnimating && !isReconstructingAnimating && !isDisasterActive &&
+        viewingMode !== 'reconstruction' && viewingMode !== 'damage' &&
+        damageType === 'none' && comparisonSlider < 95 && comparisonMode !== 'restored' && (
+        <div className="absolute top-4 right-4 pointer-events-none bg-[rgba(255,255,255,0.85)] backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-[#D8E4EF] text-xs font-mono space-y-1 z-20 shadow-[0_4px_16px_rgba(50,90,125,0.08)]">
+          <div className="text-[#28BFEF] font-bold flex items-center gap-2 justify-between">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#28BFEF] animate-pulse" />
+              <span>PHYSICAL & GEOMETRIC DIMENSIONS</span>
+            </span>
+          </div>
+          <div className="text-[#60758A]">
+            LINEAR — L:<span className="text-[#17324D] font-bold">{GROUND_TRUTH_BUILDING.lengthX.toFixed(2)}m</span> W:<span className="text-[#17324D] font-bold">{GROUND_TRUTH_BUILDING.widthZ.toFixed(2)}m</span> H:<span className="text-[#17324D] font-bold">{GROUND_TRUTH_BUILDING.heightY.toFixed(2)}m</span>
+          </div>
+          <div className="text-[#60758A]">
+            PERIMETER: <span className="text-[#17324D] font-bold">{(2 * (GROUND_TRUTH_BUILDING.lengthX + GROUND_TRUTH_BUILDING.widthZ)).toFixed(2)}m</span>
+          </div>
+          <div className="text-[#60758A]">
+            SUPERFICIAL — AREA: <span className="text-[#17324D] font-bold">{(2 * (GROUND_TRUTH_BUILDING.lengthX * GROUND_TRUTH_BUILDING.widthZ + GROUND_TRUTH_BUILDING.lengthX * GROUND_TRUTH_BUILDING.heightY + GROUND_TRUTH_BUILDING.widthZ * GROUND_TRUTH_BUILDING.heightY)).toFixed(1)}m²</span>
+          </div>
+          <div className="text-[#60758A]">
+            CUBIC — VOLUME: <span className="text-[#17324D] font-bold">{(GROUND_TRUTH_BUILDING.lengthX * GROUND_TRUTH_BUILDING.widthZ * GROUND_TRUTH_BUILDING.heightY).toFixed(1)}m³</span>
+          </div>
+          <div className="pt-1">
+            <ProvenanceBadge type="DEMO_METRIC_NOT_VALIDATED" size="sm" showIcon={false} />
+          </div>
+        </div>
+      )}
 
       {/* Bottom Floating Mode Notification Badge */}
       <div className="absolute bottom-4 left-4 pointer-events-none bg-[rgba(255,255,255,0.85)] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#D8E4EF] text-xs font-mono text-[#60758A] z-20 flex flex-wrap items-center gap-2 shadow-[0_4px_16px_rgba(50,90,125,0.08)]">
