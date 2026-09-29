@@ -8,6 +8,11 @@ The application provides a staged workflow covering video input, frame extractio
 
 The prototype is designed to make the complete reconstruction process understandable through a structured user interface while keeping the underlying processing workflow organized into distinct stages.
 
+## Live Prototype
+
+**Try S3DGen:**  
+https://s3-d-gen-seven.vercel.app/
+
 ---
 
 ## Features
